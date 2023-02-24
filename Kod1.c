@@ -56,7 +56,7 @@ int main()
     scanf("%19s", otsi_huviala);
 
     printf("Inimesed kellele meeldib %s:\n", otsi_huviala);
-    fprintf(out_fail, "Inimesed kellele meeldib %s:", otsi_huviala);
+    fprintf(out_fail, "Inimesed kellele meeldib %s:\n", otsi_huviala);
     for (int i = 0; i < inimeste_arv; i++) 
     {
         for (int j = 0; j < inimene[i].H; j++)
