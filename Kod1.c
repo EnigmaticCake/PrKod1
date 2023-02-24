@@ -2,83 +2,91 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define MAX_SPORTS 10
+#define MAX_HUVI 10
 
-struct Person {
-    char name[50];
-    int num_sports;
-    char sports[MAX_SPORTS][20];
+struct Inimene {
+    char nimi[50];
+    int H;
+    char hobi[MAX_HUVI][20];
 };
 
 int main() 
 {
-    struct Person people[100];
-    int num_people = 0;
+    struct Inimene inimene[100];
+    int inimeste_arv = 0;
 
-    FILE *fp = fopen("Kod1f", "r");
-    if (fp == NULL) 
+    FILE *fail = fopen("Kod1f", "r");
+    if (fail == NULL) 
     {
-        printf("Could not open file\n");
+        printf("Fail ei avanenud!!!\n");
         exit(1);
     }
 
     char line[100];
-    while (fgets(line, sizeof(line), fp))
+    while (fgets(line, sizeof(line), fail))
     {
         sscanf(line, "%s %d %[^\n]",
-	       people[num_people].name,
-	       &people[num_people].num_sports,
+	       inimene[inimeste_arv].nimi,
+	       &inimene[inimeste_arv].H,
 		line);
 
-        char *sport = strtok(line, " ");
+        char *hobbi = strtok(line, " ");
         int i = 0;
 
-        while (sport != NULL && i < MAX_SPORTS)
+        while (hobbi != NULL && i < MAX_HUVI)
 	{
-            strncpy(people[num_people].sports[i], sport, sizeof(people[num_people].sports[i]) - 1);
-            people[num_people].sports[i][sizeof(people[num_people].sports[i]) - 1] = '\0';
-            sport = strtok(NULL, " ");
+            strncpy(inimene[inimeste_arv].hobi[i], hobbi, sizeof(inimene[inimeste_arv].hobi[i]) - 1);
+            inimene[inimeste_arv].hobi[i][sizeof(inimene[inimeste_arv].hobi[i]) - 1] = '\0';
+            hobbi = strtok(NULL, " ");
             i++;
         }
-        num_people++;
+        inimeste_arv++;
     }
 
- 
+    FILE *out_fail = fopen("Kod1f_out", "w");
+     if (out_fail == NULL) 
+    {
+        printf("Fail ei avanenud\n");
+        exit(1);
+    }
 
     // Search for people with the same sports
-    char search_sport[20];
-    printf("Enter a sport to search for: ");
-    scanf("%19s", search_sport);
+    char otsi_huviala[20];
+    printf("Sisesta huviala: ");
+    scanf("%19s", otsi_huviala);
 
-    printf("People who play %s:\n", search_sport);
-    for (int i = 0; i < num_people; i++) 
+    printf("Inimesed kellele meeldib %s:\n", otsi_huviala);
+    fprintf(out_fail, "Inimesed kellele meeldib %s:", otsi_huviala);
+    for (int i = 0; i < inimeste_arv; i++) 
     {
-        for (int j = 0; j < people[i].num_sports; j++)
+        for (int j = 0; j < inimene[i].H; j++)
         {
-            if (strcmp(people[i].sports[j], search_sport) == 0) 
+            if (strcmp(inimene[i].hobi[j], otsi_huviala) == 0) 
             {
-                printf("%s\n", people[i].name);
-	
+                printf("%s\n", inimene[i].nimi);
+		fprintf(out_fail, "%s\n", inimene[i].nimi);
                 break;
             }
         }
     }
-    fclose(fp);
-   
+
+    fclose(fail);
+    fclose(out_fail);
 
 
     // Display the original file
-    printf("\nOriginal file:\n");
-    fp = fopen("Kod1f", "r");
-    if (fp == NULL) {
-        printf("Could not open file\n");
+    printf("\nAlgne fail:\n");
+    fail = fopen("Kod1f", "r");
+    if (fail == NULL) 
+    {
+        printf("Fail ei avanenud\n");
         exit(1);
     }
-    while (fgets(line, sizeof(line), fp)) 
+    while (fgets(line, sizeof(line), fail)) 
     {
         printf("%s", line);
     }
-    fclose(fp);
+    fclose(fail);
 
 
     return 0;
