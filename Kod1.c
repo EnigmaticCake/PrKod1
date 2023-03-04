@@ -49,8 +49,7 @@ int main()
         printf("Fail ei avanenud\n");
         exit(1);
     }
-
-    // Search for people with the same sports
+	
     char otsi_huviala[20];
     printf("Sisesta huviala: ");
     scanf("%19s", otsi_huviala);
@@ -74,7 +73,6 @@ int main()
     fclose(out_fail);
 
 
-    // Display the original file
     printf("\nAlgne fail:\n");
     fail = fopen("Kod1f", "r");
     if (fail == NULL) 
