@@ -42,7 +42,7 @@ int main()
         }
         inimeste_arv++;
     }
-
+	
     FILE *out_fail = fopen("Kod1f_out", "w");
      if (out_fail == NULL) 
     {
