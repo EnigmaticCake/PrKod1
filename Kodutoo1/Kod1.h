@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 #define MAX_HUVI 10
 
@@ -11,5 +12,6 @@ struct Inimene {
 };
 
 int lugemine(FILE *fail, struct Inimene *inimene);
-void print(char *otsi_huviala, int, FILE *out_fail, struct Inimene *inimene);
+void aadressi_genereerimine(char *address);
+void print(char *otsi_huviala, int, FILE *out_fail, struct Inimene *inimene, char *address);
 void algandmed(FILE *fail, char *line);

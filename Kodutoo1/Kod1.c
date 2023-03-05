@@ -2,6 +2,7 @@
 
 int main() 
 {
+
     struct Inimene inimene[100];
 
     FILE *fail = fopen("Kod1f", "r");
@@ -16,15 +17,18 @@ int main()
         printf("Fail ei avanenud\n");
         exit(1);
     }
-
+    
     char line[100];
-    int inimeste_arv = lugemine(fail, inimene);  
+    int inimeste_arv = lugemine(fail, inimene);
+
+    srand(time(NULL));
+    char address[100];
 
     char otsi_huviala[20];
     printf("Sisesta huviala: ");
     scanf("%19s", otsi_huviala);
 
-    print(otsi_huviala, inimeste_arv, out_fail, inimene);
+    print(otsi_huviala, inimeste_arv, out_fail, inimene, address);
  
     fclose(fail);
     fclose(out_fail);
